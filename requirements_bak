@@ -12,5 +12,3 @@ pymysql==0.9.3
 uwsgi==2.0.18
 pytest==4.3.0
 pytest-cov==2.6.1
-kafka-python==2.0.2
-stix2==2.1.0

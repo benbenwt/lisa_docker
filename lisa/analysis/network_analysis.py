@@ -195,7 +195,6 @@ class NetworkAnalyzer(AbstractSubAnalyzer):
 
             anomaly = Anomaly(name, description, data)
             self._anomalies.append(anomaly.to_dict())
-
         return endpoint
 
     def _l7_analysis(self, packet):

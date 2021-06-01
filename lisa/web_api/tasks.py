@@ -13,6 +13,8 @@ from lisa.core.base import AnalyzedPcap
 from lisa.web_api.app import celery_app
 from lisa.config import logging_config, storage_path
 
+from lisa.web_api.transfer_one  import transfer
+from lisa.web_api.producer import produce
 logging.config.dictConfig(logging_config)
 log = logging.getLogger()
 
@@ -82,5 +84,9 @@ def full_analysis(self, file_path, pretty=False, exec_time=20):
     output_file = f'{data_dir}/report.json'
 
     save_output(master.output, output_file, pretty)
-
+    stix_file=transfer(f'{data_dir}/report.json',f'{data_dir}')
+    produce('lisa',os.path.join(f"/root/module/lisa_/lisaMine/data/storage/{self.request.id}",stix_file))
+    produce('lisatohdfs', os.path.join(f"/root/module/lisa_/lisaMine/data/storage/{self.request.id}", stix_file))
+    with open('/home/lisa/data/storage/log.txt','a') as logfile:	
+        logfile.write(stix_file)
     return 'binary'
